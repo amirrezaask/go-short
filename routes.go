@@ -10,8 +10,7 @@ func registerRoutes(e *echo.Echo) {
 		response := map[string]string{"message": "OK"}
 		return ctx.JSON(200, response)
 	})
-	url.
-		e.GET("/go/:uri", url.Redirection)
+	e.GET("/go/:uri", url.Redirection)
 	v1 := e.Group("/api/v1")
 	v1.POST("/url", url.New)
 }

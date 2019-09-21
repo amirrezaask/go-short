@@ -37,8 +37,10 @@ func New(c echo.Context) error {
 		Target: fields.Url,
 		Uri:    newUri(),
 	}
-	database.ORM().Save(&url) // check for error
 
+	if err := database.ORM().Save(&url).Error; err != nil {
+		return c.JSON(500, newapiError(err))
+	}
 	return c.JSON(200, url)
 }
 
@@ -47,11 +49,12 @@ func Redirection(c echo.Context) error {
 
 	url := new(models.Url)
 
-	database.ORM().Where("uri = ?", uri).First(&url)
+	if err := database.ORM().Where("uri = ?", uri).First(&url).Error; err != nil {
+		return c.JSON(500, newapiError(err))
+	}
 
 	if url == nil {
 		return c.JSON(404, apiError{"Not found."})
 	}
-
 	return c.Redirect(301, url.Target)
 }

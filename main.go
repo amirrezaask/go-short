@@ -7,7 +7,7 @@ import (
 
 	"go-short/config"
 	"go-short/database"
-	"go-short/services/validator"
+	"go-short/models"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -36,7 +36,7 @@ func configure(e *echo.Echo) error {
 	if err != nil {
 		return err
 	}
-	e.Validator = validator.New()
+	e.Validator = models.NewValidator()
 	e.Logger.SetOutput(logFile)
 	e.HTTPErrorHandler = errorHandler
 

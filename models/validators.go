@@ -10,6 +10,6 @@ func (cv *CustomValidator) Validate(i interface{}) error {
 	return cv.validator.Struct(i)
 }
 
-func New() *CustomValidator {
+func NewValidator() *CustomValidator {
 	return &CustomValidator{validator: validator.New()}
 }
